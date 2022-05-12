@@ -1,1 +1,70 @@
+#include <stdio.h>
+//função dedicada a verificar se a entrada de valores teve sucesso.
+void printchar(unsigned char c){
+  unsigned char bit, cont;
+  bit=128;
+  for(cont=0; cont<8; cont++){
+    if((c & bit) > 0){
+      printf("1");
+    }
+    else{
+      printf("0");
+    }
+    bit = bit>>1;
+  }
+}
+//Função que ligaria os leds.
+void send (unsigned long long x){
+  int i;
+  int r;
+  printf("\n");
+  
+  for (i=63; i>=0; i--){
+  if ((i+1)==64){
+    printf("|\t");
+  } 
+  if ((i+1) != 64 && (i+1)%8 == 0){
+  printf("|\n\n");
+  printf("|\t");
+  } 
+  r = x >> i;
+  if (r & 1){
+  printf("1");
+  } else {
+  printf("0");
+  }
+  printf("\t");
+  }
+  printf("|");
+}
 
+//Função main.
+int main(){
+  //Declaração de Variáveis.
+  unsigned long long x;
+  int i,j,a,b,c,d,e,f,g,h;
+  unsigned char *pc;
+  //O valor guardado dentro de pc é a posição da variável x.
+  pc = (unsigned char*) &x;
+  // Definindo quais leds serão ligadas a partir de um número decimal.
+  for (i=0;i<8;i++){
+    pc[i]=rand()%100;
+  }
+  //A função para verificar se os valores sairam certos é ativada.
+  printf("-pre-definição antes da função-\n");
+  for(i=7; i>=0; i--){
+    printf("|");
+    printchar(pc[i]);
+    printf("|");
+    printf("\n");
+  }
+ //Imprime o valor de x.
+ printf("\nO valor decimal gerado pela matriz é = %lld\n", x);
+
+  //A função para ligar as leds recebe o valor unsigned long long da variável x.
+  printf("\n\t\t-Envio do valor de x-\n");
+  send (x);
+  //Função é exectutada e o programa termina.
+  printf("\n");
+  return 0;
+}
