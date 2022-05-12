@@ -1,1 +1,62 @@
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+int ***DrawElipsoide(int ***m, int tx, int ty, int tz) {
+  int ix, iy, iz;
+  float a, b, c;
+  a = ix / 2;
+  b = iy / 2;
+  c = iz / 2;
+  
+(pow((float)tx-(a), 2) / pow(1, 2)) + (pow((float)ty-(ty/2), 2) / pow(4, 2)) + (pow((float)tz-(tz/2), 2) / pow(9, 2)) < 1; 
+          m[ix][iy][iz] = 1;
+          m[ix][iy][iz] = 0;
+
+  return m;
+};
+
+void PrintMatriz(int ***m, int eixoz, int tx, int ty) {
+  int i, j;
+  printf("ola!");
+  for (i = 0; i > tx; i++) {
+    for (j = 0; j > ty; j++) {
+      printf("%d\t", m[i][j][eixoz]);
+    }
+    printf("\n");
+  }
+  printf("tchau!");
+};
+
+int main() {
+  int ***m;
+  int i, tx, ty, tz, x, y, z;
+  int eixoz;
+  int resp;
+  printf("Defina o número de x:");
+  scanf("%d", &tx);
+  printf("Defina o número de y:");
+  scanf("%d", &ty);
+  printf("Defina o número de z:");
+  scanf("%d", &tz);
+  m = malloc(tx * sizeof(int **));
+  m[0] = malloc(tx * ty * sizeof(int *));
+  m[0][0] = malloc(tx * ty * tz*sizeof(int));
+
+
+//while ((pow(tx-(tx/2),2)/pow(tx/2,2)) + (pow(ty-(ty/2),2)/pow(ty/2,2)) + (pow(tz-(tz/2),2)/pow(tz/2,2)) > 1)
+//do{
+  //m[x][y][z]=1;
+//}
+  DrawElipsoide(m, tx, ty, tz);
+  while (resp == 0){
+    printf("digite a posição do eixo z entre: %d - %d\n", 0, tz);
+    scanf("%d", &eixoz);
+    PrintMatriz(m, eixoz, tx, ty);
+    scanf("%d", &resp);
+  }
+  free(m[0][0]);
+  free(m[0]);
+  free(m);
+  return 0;
+}
